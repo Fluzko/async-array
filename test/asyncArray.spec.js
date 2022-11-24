@@ -1,32 +1,32 @@
-const AsyncArray = require('../src/index.js');
+import AsyncArray from '../src/index';
 
 describe('AsyncArray', () => {
   const genericGenerator = (i) => i + 1;
   describe('Structure', () => {
     it('Should be able to instance an async array', () => {
       const generator = () => {};
-      new AsyncArray(generator);
+      AsyncArray(generator);
     });
 
     it('Should be instance of array', () => {
-      expect(new AsyncArray(genericGenerator)).toBeInstanceOf(Array);
+      expect(AsyncArray(genericGenerator)).toBeInstanceOf(Array);
     });
   });
 
   describe('Behavior', () => {
     it('Should set a promise when a non-accessed position is accesed', () => {
-      const asyncArray = new AsyncArray(genericGenerator);
+      const asyncArray = AsyncArray(genericGenerator);
       expect(asyncArray[0]).toBeInstanceOf(Promise);
     });
 
     it('Should be able to await the promise setted at the accessed index', async () => {
-      const asyncArray = new AsyncArray(genericGenerator);
+      const asyncArray = AsyncArray(genericGenerator);
       const result = await asyncArray[0];
       expect(result).toBe(1);
     });
 
     it("Should set the resolved value it's corresponding position", async () => {
-      const asyncArray = new AsyncArray(genericGenerator);
+      const asyncArray = AsyncArray(genericGenerator);
       asyncArray[0];
       expect(asyncArray[0]).toBeInstanceOf(Promise);
       await asyncArray[0];
@@ -35,7 +35,7 @@ describe('AsyncArray', () => {
 
     it("Should have the length of the biggest index that's been get", () => {
       const generator = (i) => i + 1;
-      const asyncArray = new AsyncArray(generator);
+      const asyncArray = AsyncArray(generator);
       expect(asyncArray.length).toBe(0);
       asyncArray[150];
       expect(asyncArray.length).toBe(151);
@@ -45,7 +45,7 @@ describe('AsyncArray', () => {
 
     describe("Should resolve all it's promise-values when called with", () => {
       const getPromisedArray = () => {
-        const asyncArray = new AsyncArray(genericGenerator);
+        const asyncArray = AsyncArray(genericGenerator);
         asyncArray[0];
         asyncArray[1];
         asyncArray[2];
@@ -83,21 +83,21 @@ describe('AsyncArray', () => {
         'findIndex',
       ];
 
-      const asyncArray = new AsyncArray(genericGenerator);
+      const asyncArray = AsyncArray(genericGenerator);
       supportedArrayMethods.forEach((method) => {
         expect(asyncArray[method]).toBeInstanceOf(Function);
       });
     });
 
-    describe("array pure methods shouldn't mutate the array and should return a new instance if expected", () => {
+    describe("array pure methods shouldn't mutate the array and should return a  instance if expected", () => {
       let asyncArray;
       beforeAll(async () => {
-        const _asyncArray = new AsyncArray(genericGenerator);
-        _asyncArray[0];
-        _asyncArray[1];
-        _asyncArray[56];
-        await Promise.all(_asyncArray);
-        asyncArray = _asyncArray;
+        const instance = AsyncArray(genericGenerator);
+        instance[0];
+        instance[1];
+        instance[56];
+        await Promise.all(instance);
+        asyncArray = instance;
       });
 
       it('Should _map_ as an array ', async () => {
@@ -118,12 +118,12 @@ describe('AsyncArray', () => {
       });
 
       it('Should _reduce_ as an array ', async () => {
-        const aa = new AsyncArray(genericGenerator);
-        aa[0];
-        aa[1];
-        aa[2];
-        await Promise.all(aa);
-        const result = aa.reduce((acc, v) => acc + v, 0);
+        const instance = AsyncArray(genericGenerator);
+        instance[0];
+        instance[1];
+        instance[2];
+        await Promise.all(instance);
+        const result = instance.reduce((acc, v) => acc + v, 0);
         expect(typeof result).toEqual('number');
         expect(result).toEqual(6);
       });
@@ -146,7 +146,7 @@ describe('AsyncArray', () => {
 
     describe('Should support special methods', () => {
       it('Should set undefined to an index when called wipeIndex', async () => {
-        const asyncArray = new AsyncArray(genericGenerator);
+        const asyncArray = AsyncArray(genericGenerator);
         await asyncArray[1];
         expect(asyncArray[1]).toBe(2);
         asyncArray.wipeIndex(1);
@@ -154,7 +154,7 @@ describe('AsyncArray', () => {
       });
 
       it('Should empty the whole array when called wipe', async () => {
-        const asyncArray = new AsyncArray(genericGenerator);
+        const asyncArray = AsyncArray(genericGenerator);
         await asyncArray[1];
         expect(asyncArray[1]).toBe(2);
         expect(asyncArray.length).toBe(2);
@@ -163,8 +163,8 @@ describe('AsyncArray', () => {
         expect(asyncArray.length).toEqual(0);
       });
 
-      it('Should return a new instance of AsyncArray when called clone', async () => {
-        const asyncArray = new AsyncArray(genericGenerator);
+      it('Should return a  instance of AsyncArray when called clone', async () => {
+        const asyncArray = AsyncArray(genericGenerator);
         await asyncArray[1];
         const clonedArray = asyncArray.clone();
         expect(clonedArray).toBeInstanceOf(Array);
