@@ -1,48 +1,6 @@
 import AsyncArrayException from './asyncArrayException';
-
-const getHandler = (generator) => ({
-  get: (target, prop) => {
-    const supportedArrayMethods = [
-      'map',
-      'filter',
-      'reduce',
-      'forEach',
-      'find',
-      'findIndex',
-      'length',
-    ];
-    if (supportedArrayMethods.includes(prop) || typeof prop === 'symbol') {
-      return target[prop];
-    }
-
-    const specialMethods = {
-      wipeIndex: (i) => {
-        target[i] = undefined;
-      },
-      wipe: () => {
-        target.length = 0;
-      },
-      clone: () => AsyncArray(generator, target),
-    };
-    if (specialMethods[prop]) return specialMethods[prop];
-
-    const i = Number(prop);
-    if (Number.isSafeInteger(i)) {
-      if (target[i] === undefined) {
-        target[i] = new Promise((resolve) => {
-          resolve(generator(i));
-        }).then((v) => {
-          target[i] = v;
-          return v;
-        });
-      }
-
-      return target[i];
-    }
-
-    throw new AsyncArrayException(`Property ${prop} is not supported`);
-  },
-});
+// eslint-disable-next-line import/no-cycle
+import Handler from './handler';
 
 const AsyncArray = (generator, initial = []) => {
   if (typeof generator !== 'function')
@@ -50,7 +8,7 @@ const AsyncArray = (generator, initial = []) => {
   if (!Array.isArray(initial))
     throw new AsyncArrayException('Initial value must be an array');
 
-  return new Proxy([...initial], getHandler(generator));
+  return new Proxy([...initial], new Handler(generator).build());
 };
 
 export default AsyncArray;

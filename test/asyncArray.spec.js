@@ -172,6 +172,13 @@ describe('AsyncArray', () => {
         expect(clonedArray.length).toBe(2);
         expect(clonedArray[1]).toBe(2);
       });
+
+      it('Should throw if trying to set the value of an index externally', () => {
+        const asyncArray = AsyncArray(genericGenerator);
+        expect(() => {
+          asyncArray[0] = 1;
+        }).toThrow();
+      });
     });
   });
 });
