@@ -2,6 +2,7 @@
 
 [![tests](https://img.shields.io/github/workflow/status/fluzko/async-array/Testing?label=Tests)]()
 [![npm](https://img.shields.io/npm/v/@fluzko/async-array)](https://www.npmjs.com/package/@fluzko/async-array)
+
 A simple `array` wrapper that allows you to interact with `async` content and self manageable promise resolution by passing an async generator function.
 
 ## Usage
