@@ -1,12 +1,13 @@
 {
-  "name": "async-array",
-  "version": "1.0.0",
+  "name": "@fluzko/async-array",
+  "version": "0.1.0",
   "description": "",
   "type": "module",
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "coverage": "jest --coverage"
   },
   "author": "",
   "license": "ISC",
