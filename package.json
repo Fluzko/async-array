@@ -1,8 +1,11 @@
 {
   "name": "@fluzko/async-array",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "homepage": "https://github.com/fluzko/async-array",
-  "keywords": ["array","async"],
+  "keywords": [
+    "array",
+    "async"
+  ],
   "author": "Fluzko",
   "description": "",
   "license": "MIT",
