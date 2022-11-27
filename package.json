@@ -1,6 +1,11 @@
 {
   "name": "@fluzko/async-array",
   "version": "0.1.0",
+  "homepage": "https://github.com/fluzko/async-array",
+  "keywords": [
+        "array",
+        "async"
+  ],
   "description": "",
   "type": "module",
   "main": "index.js",
