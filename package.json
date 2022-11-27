@@ -2,11 +2,10 @@
   "name": "@fluzko/async-array",
   "version": "0.1.0",
   "homepage": "https://github.com/fluzko/async-array",
-  "keywords": [
-        "array",
-        "async"
-  ],
+  "keywords": ["array","async"],
+  "author": "Fluzko",
   "description": "",
+  "license": "MIT",
   "type": "module",
   "main": "index.js",
   "scripts": {
@@ -14,8 +13,6 @@
     "lint": "eslint .",
     "coverage": "jest --coverage"
   },
-  "author": "",
-  "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.20.2",
     "@babel/preset-env": "^7.20.2",
